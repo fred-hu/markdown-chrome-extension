@@ -4,6 +4,7 @@ const { series, parallel } = require('gulp');
 import gulpLoadPlugins from 'gulp-load-plugins';
 const lint = require('./lint');
 const babel = require('./babel');
+const browserify = require('./browserify');
 const $ = gulpLoadPlugins();
 
 const liver = async (cb) => {
@@ -18,8 +19,8 @@ const liver = async (cb) => {
     ])
     .on('change', $.livereload.reload);
 
-  gulp.watch('app/scripts.babel/**/*.js', parallel('lint', 'babel'));
+  gulp.watch('app/scripts.babel/**/*.js', series(parallel('lint', 'babel'), browserify));
   gulp.watch('bower.json', parallel('wiredep'));
   await cb();
 };
-module.exports = series(parallel(lint, babel), liver);
+module.exports = series(parallel(lint, babel), browserify ,liver);
