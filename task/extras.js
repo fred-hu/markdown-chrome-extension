@@ -6,6 +6,7 @@ module.exports = async function extras(cb) {
       .src(
         [
           'app/*.*',
+          'app/html/*.html',
           'app/_locales/**',
           '!app/scripts.babel',
           '!app/*.json',
