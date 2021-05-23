@@ -23,7 +23,9 @@ const liver = async (cb) => {
   gulp.watch(
     'app/scripts.babel/**/*.js',
     series(parallel('lint', 'babel'), browserify, function reload(callback) {
-      $.livereload.reload('app/scripts/background.js');
+      setTimeout(() => {
+        $.livereload.reload('app/scripts/background.js');
+      }, 0);
       callback();
     })
   );
